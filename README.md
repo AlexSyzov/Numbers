@@ -1,1 +1,1 @@
-# For JS homework in GoIT
+# For React homework in GoIT
