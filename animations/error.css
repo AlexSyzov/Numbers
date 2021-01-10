@@ -1,0 +1,32 @@
+.Error-appear {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.Error-appear-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms linear;
+}
+
+.Error-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.Error-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms linear;
+}
+
+.Error-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.Error-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 250ms linear;
+}

@@ -1,0 +1,8 @@
+.Header-slideIn-appear {
+  transform: translateX(-100%);
+}
+
+.Header-slideIn-appear-active {
+  transform: translateX(0);
+  transition: transform 500ms linear;
+}
