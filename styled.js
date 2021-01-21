@@ -132,8 +132,8 @@ export const FilterContainer = styled.div`
 
 export const ErrorBlock = styled.div`
   background-color: #f73f3f;
-  width: 17%;
-  height: 80px;
+  width: 220px;
+  height: 26px;
   display: flex;
   justify-content: center;
   align-items: center;

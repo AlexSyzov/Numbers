@@ -1,12 +1,3 @@
-.Filter-enter {
-  transform: scale(0.1);
-}
-
-.Filter-enter-active {
-  transform: scale(1);
-  transition: all 250ms linear;
-}
-
 .Filter-exit {
   transform: scale(1);
 }

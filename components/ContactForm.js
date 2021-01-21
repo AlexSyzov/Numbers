@@ -1,15 +1,27 @@
 import React, { Component } from "react";
 import { Form, FormInput, FormLabel, Button } from "../styled";
+import { CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import contactsActions from "../redux/contacts/contactsActions";
+import Error from "./Error";
+import "../animations/error.css";
+class ContactForm extends Component {
+  static propTypes = {
+    contacts: PropTypes.arrayOf(
+      PropTypes.exact({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        number: PropTypes.string,
+      })
+    ).isRequired,
+    onContactAdding: PropTypes.func.isRequired,
+  };
 
-export default class ContactForm extends Component {
   state = {
     name: "",
     number: "",
-  };
-
-  static propTypes = {
-    onFormSubmission: PropTypes.func.isRequired,
+    error: false,
   };
 
   handleInputChange = (e) => {
@@ -25,12 +37,34 @@ export default class ContactForm extends Component {
 
     const { name, number } = this.state;
 
+    if (!this.isInContacts(name)) {
+      this.addContact(name, number);
+      return;
+    }
+
+    this.handleError();
+  };
+
+  addContact = (name, number) => {
+    this.props.onContactAdding(name, number);
+
     this.setState({
       name: "",
       number: "",
     });
+  };
 
-    this.props.onFormSubmission(name, number);
+  handleError = () => {
+    this.setState({ error: true });
+
+    setTimeout(() => this.setState({ error: false }), 2500);
+  };
+
+  isInContacts = (name) => {
+    return this.props.contacts.some(
+      (contact) =>
+        name.toLowerCase().trim() === contact.name.toLowerCase().trim()
+    );
   };
 
   render() {
@@ -63,7 +97,26 @@ export default class ContactForm extends Component {
         <Button type="submit" disabled={!name || !number}>
           Add contact
         </Button>
+        <CSSTransition
+          in={this.state.error}
+          appear
+          timeout={250}
+          classNames="Error"
+          unmountOnExit
+        >
+          <Error />
+        </CSSTransition>
       </Form>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  contacts: state.contacts.items,
+});
+
+const mapDispatchToProps = {
+  onContactAdding: contactsActions.addContact,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

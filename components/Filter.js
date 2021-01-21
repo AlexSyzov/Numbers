@@ -3,12 +3,13 @@ import { Input, Label, FilterContainer } from "../styled";
 import { CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 import "../animations/filterBlock.css";
+import { connect } from "react-redux";
+import contactsActions from "../redux/contacts/contactsActions";
 
-const Filter = ({ stage, filter, onInputChange }) => {
+const Filter = ({ filter, onFilterChange }) => {
   return (
     <CSSTransition
-      appear
-      in={stage === "entered"}
+      in={true}
       timeout={250}
       classNames="Filter-block"
       unmountOnExit
@@ -20,7 +21,7 @@ const Filter = ({ stage, filter, onInputChange }) => {
             type="text"
             value={filter}
             name="filter"
-            onChange={onInputChange}
+            onChange={(e) => onFilterChange(e.target.value)}
           />
         </Label>
       </FilterContainer>
@@ -30,7 +31,15 @@ const Filter = ({ stage, filter, onInputChange }) => {
 
 Filter.propTypes = {
   filter: PropTypes.string.isRequired,
-  onInputChange: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
-export default Filter;
+const mapStateToProps = (state) => ({
+  filter: state.contacts.filter,
+});
+
+const mapDispatchToProps = {
+  onFilterChange: contactsActions.changeFilter,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

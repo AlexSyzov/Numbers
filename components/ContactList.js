@@ -3,21 +3,17 @@ import ContactListItem from "./ContactListItem";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 import "../animations/contacts.css";
+import { connect } from "react-redux";
 
-const ContactList = ({ contacts, onContactDeletion }) => {
+const ContactList = ({ contacts }) => {
   return (
     <TransitionGroup
       component="ul"
       style={{ listStyleType: "none", marginLeft: 0 }}
     >
-      {contacts.map(({ id, name, number }) => (
-        <CSSTransition key={id} timeout={250} classNames="Contact-slide">
-          <ContactListItem
-            id={id}
-            name={name}
-            number={number}
-            onContactDeletion={onContactDeletion}
-          />
+      {contacts.map((props) => (
+        <CSSTransition key={props.id} timeout={250} classNames="Contact-slide">
+          <ContactListItem {...props} />
         </CSSTransition>
       ))}
     </TransitionGroup>
@@ -32,7 +28,19 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  onContactDeletion: PropTypes.func.isRequired,
 };
 
-export default ContactList;
+const mapStateToProps = (state) => {
+  const { items, filter } = state.contacts;
+  const normalizedFilter = filter.toLowerCase();
+
+  const visibleContacts = items.filter(({ name }) =>
+    name.toLowerCase().includes(normalizedFilter)
+  );
+
+  return {
+    contacts: visibleContacts,
+  };
+};
+
+export default connect(mapStateToProps)(ContactList);

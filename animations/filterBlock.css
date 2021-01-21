@@ -7,11 +7,11 @@
   transition: all 250ms linear;
 }
 
-.Filter-block-appear {
+.Filter-block-enter {
   transform: scale(0.1);
 }
 
-.Filter-block-appear-active {
+.Filter-block-enter-active {
   transform: scale(1);
   transition: all 250ms linear;
 }
