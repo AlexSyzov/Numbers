@@ -1,0 +1,17 @@
+.Loader-appear {
+  opacity: 0;
+}
+
+.Loader-appear-active {
+  opacity: 1;
+  transition: all 250ms linear;
+}
+
+.Loader-enter {
+  opacity: 0;
+}
+
+.Loader-enter-active {
+  opacity: 1;
+  transition: all 250ms linear;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import contactsActions from "./redux/contacts/contactsActions";
+import contactsOperations from "./redux/contacts/contactsOperations";
 import { CSSTransition } from "react-transition-group";
 import ContactList from "./components/ContactList";
 import ContactForm from "./components/ContactForm";
@@ -13,18 +13,7 @@ import "./animations/list.css";
 
 class App extends Component {
   componentDidMount() {
-    const { updateContacts } = this.props;
-    const persistedContacts = localStorage.getItem("contacts");
-
-    if (persistedContacts) {
-      updateContacts(JSON.parse(persistedContacts));
-    }
-  }
-
-  componentDidUpdate() {
-    const { contacts } = this.props;
-
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+    this.props.onFetchContacts();
   }
 
   render() {
@@ -69,7 +58,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  updateContacts: contactsActions.updateContacts,
+  onFetchContacts: contactsOperations.fetchContacts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

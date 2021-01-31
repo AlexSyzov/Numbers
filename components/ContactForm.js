@@ -3,14 +3,14 @@ import { Form, FormInput, FormLabel, Button } from "../styled";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import contactsActions from "../redux/contacts/contactsActions";
+import contactsOperations from "../redux/contacts/contactsOperations";
 import Error from "./Error";
 import "../animations/error.css";
 class ContactForm extends Component {
   static propTypes = {
     contacts: PropTypes.arrayOf(
       PropTypes.exact({
-        id: PropTypes.string,
+        id: PropTypes.number,
         name: PropTypes.string,
         number: PropTypes.string,
       })
@@ -116,7 +116,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  onContactAdding: contactsActions.addContact,
+  onContactAdding: contactsOperations.addContact,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
