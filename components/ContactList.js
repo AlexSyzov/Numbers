@@ -4,7 +4,6 @@ import contactsSelectors from "../redux/contacts/contactsSelectors";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 import "../animations/contacts.css";
-import "../animations/loader.css";
 import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
 
