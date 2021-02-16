@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const FontFamily = `
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Raleway", sans-serif;
 `;
 
 const MarginLeft = `
@@ -56,14 +56,16 @@ const ButtonStyles = `
 
 export const Header = styled.h2`
   ${FontFamily}
-  ${MarginLeft}
+  font-weight: 700;
   color: #4682b4;
+  margin: 10px 0 10px 5px;
 `;
 
 export const Form = styled.form`
   ${MarginLeft}
+  font-weight: 600;
   width: 470px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   border-radius: 6px;
   padding: 10px;
   box-shadow: 1px 2px 10px -4px #000000;
@@ -97,10 +99,13 @@ export const ListItemButton = styled.button`
   width: 32px;
   background-color: #ee5353;
   margin-left: 10px;
+  font-weight: 600;
+  padding-top: 2px;
 `;
 
 export const ListItem = styled.li`
   ${FontFamily}
+  font-weight: 500;
   font-size: 20px;
   margin-bottom: 6px;
   display: flex;
@@ -124,7 +129,7 @@ export const Container = styled.div`
 export const FilterContainer = styled.div`
   ${MarginLeft}
   width: 482px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   border-radius: 6px;
   padding: 6px;
   box-shadow: 1px 2px 10px -4px #000000;
@@ -145,4 +150,67 @@ export const ErrorBlock = styled.div`
   margin-right: 16%;
   border-radius: 6px;
   z-index: 2;
+`;
+
+export const ChangerForm = styled.form`
+  margin: 0 auto;
+  width: 484px;
+  height: 30px;
+  border: 4px solid #3074b8;
+  position: absolute;
+  top: 306px;
+  ${FontFamily}
+  font-size: 20px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 6px;
+  box-shadow: 1px 2px 7px -4px #000000;
+  padding: 4px;
+  background-color: #fff;
+`;
+
+export const WelcomeBox = styled.span`
+  font-size: 24px;
+  font-weight: 600;
+`;
+
+export const UserBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 320px;
+`;
+
+export const UserButton = styled.button`
+  ${ButtonStyles}
+  width: 100px;
+  background-color: #f0b27a;
+  margin-left: 10px;
+  margin-top: 3px;
+  font-family: "Raleway", sans-serif;
+
+  &:hover {
+    background-color: #eb984e;
+    transform: scale(1.02);
+  }
+`;
+
+export const PageHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  box-shadow: 0px 1px 6px 4px rgba(34, 60, 80, 0.56);
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+`;
+
+export const HomeTitle = styled.h1`
+  ${FontFamily}
+  font-weight: 700;
+  color: #4682b4;
+  margin-left: 20px;
 `;

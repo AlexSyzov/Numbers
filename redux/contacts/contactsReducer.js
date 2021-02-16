@@ -23,9 +23,6 @@ const loading = createReducer(false, {
   [contactsActions.addContactRequest]: () => true,
   [contactsActions.addContactSuccess]: () => false,
   [contactsActions.addContactError]: () => false,
-  [contactsActions.fetchContactsRequest]: () => true,
-  [contactsActions.fetchContactsSuccess]: () => false,
-  [contactsActions.fetchContactsError]: () => false,
 });
 
 export default combineReducers({ items, filter, loading });

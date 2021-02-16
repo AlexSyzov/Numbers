@@ -1,64 +1,40 @@
-import React, { Component } from "react";
-import contactsOperations from "./redux/contacts/contactsOperations";
-import { CSSTransition } from "react-transition-group";
-import ContactList from "./components/ContactList";
-import ContactForm from "./components/ContactForm";
-import Section from "./components/Section";
-import Filter from "./components/Filter";
-import Layout from "./components/Layout";
+import React, { Component, Suspense } from "react";
+import { Switch } from "react-router-dom";
+import ContactsView from "./views/ContactsView";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
+import routes from "./routes";
 import { connect } from "react-redux";
-import "./animations/filter.css";
-import "./animations/error.css";
-import "./animations/list.css";
+import { authOperations } from "./redux/auth";
+import { contactsOperations } from "./redux/contacts";
 
 class App extends Component {
   componentDidMount() {
-    this.props.onFetchContacts();
+    this.props.onCurrentUserGetting();
   }
 
   render() {
-    const { shouldFilterAppear, shouldListAppear } = this.props;
-
     return (
-      <>
-        <Layout>
-          <Section title="Phonebook">
-            <ContactForm />
-          </Section>
+      <Suspense fallback={null}>
+        <Switch>
+          {routes.map((route) =>
+            route.private ? (
+              <PrivateRoute key={route.path} {...route} />
+            ) : (
+              <PublicRoute key={route.path} {...route} />
+            )
+          )}
 
-          <Section>
-            <CSSTransition
-              in={shouldFilterAppear}
-              timeout={250}
-              classNames="Filter"
-              unmountOnExit
-            >
-              <Filter />
-            </CSSTransition>
-
-            <CSSTransition
-              in={shouldListAppear}
-              timeout={250}
-              classNames="List-slide"
-              unmountOnExit
-            >
-              <ContactList />
-            </CSSTransition>
-          </Section>
-        </Layout>
-      </>
+          <PrivateRoute path="/contacts" component={ContactsView} />
+        </Switch>
+      </Suspense>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  shouldListAppear: state.contacts.items.length > 0,
-  shouldFilterAppear: state.contacts.items.length > 1,
-  contacts: state.contacts.items,
-});
-
 const mapDispatchToProps = {
-  onFetchContacts: contactsOperations.fetchContacts,
+  onCurrentUserGetting: authOperations.getCurrentUser,
+  onContactsFetching: contactsOperations.fetchContacts,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

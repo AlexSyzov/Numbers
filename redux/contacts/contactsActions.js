@@ -16,6 +16,9 @@ const removeContact = createAction("contacts/remove");
 const changeFilter = createAction("contacts/changeFilter");
 const updateContacts = createAction("contacts/update");
 
+const isBeingChanged = createAction("contacts/isBeingChanged");
+const notBeingChanged = createAction("contacts/notBeingChanged");
+
 const actions = {
   addContactRequest,
   addContactSuccess,
@@ -29,6 +32,8 @@ const actions = {
   removeContact,
   changeFilter,
   updateContacts,
+  isBeingChanged,
+  notBeingChanged,
 };
 
 export default actions;

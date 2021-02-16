@@ -6,6 +6,10 @@ const getLoading = (state) => state.contacts.loading;
 
 const getFilter = (state) => state.contacts.filter;
 
+const isLengthNotZero = (state) => state.contacts.items.length > 0;
+
+const isLengthMoreThanOne = (state) => state.contacts.items.length > 1;
+
 const getVisibleContacts = createSelector(
   [getContacts, getFilter],
   (contacts, filter) => {
@@ -23,8 +27,11 @@ const getContactById = createSelector(
 );
 
 export default {
+  getContacts,
   getLoading,
   getFilter,
   getVisibleContacts,
   getContactById,
+  isLengthNotZero,
+  isLengthMoreThanOne,
 };

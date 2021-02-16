@@ -1,19 +1,33 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import contactsOperations from "../redux/contacts/contactsOperations";
-import contactsSelectors from "../redux/contacts/contactsSelectors";
+import { contactsOperations, contactsSelectors } from "../redux/contacts";
 import { ListItem, ListItemButton, Name } from "../styled";
 
-const ContactListItem = ({ name, number, onContactDeletion }) => {
-  return (
-    <ListItem>
-      <Name>{name.trim()}</Name> <span>{number}</span>
-      <ListItemButton type="button" onClick={onContactDeletion}>
-        X
-      </ListItemButton>
-    </ListItem>
-  );
-};
+class ContactListItem extends Component {
+  state = {
+    changedName: null,
+    changedNumber: null,
+  };
+
+  onChangeSubmission = (e) => {
+    e.preventDefault();
+
+    this.props.onContactChangeSubmission(this.props.id, { ...this.state });
+  };
+
+  render() {
+    const { name, number, onContactDeletion } = this.props;
+
+    return (
+      <ListItem>
+        <Name>{name.trim()}</Name> <span>{number}</span>
+        <ListItemButton type="button" onClick={onContactDeletion}>
+          X
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
   const contact = contactsSelectors.getContactById(state, ownProps.id);

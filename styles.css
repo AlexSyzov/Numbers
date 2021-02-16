@@ -1,0 +1,11 @@
+.NavLink {
+  margin-right: 20px;
+  color: #000;
+  font-size: 24px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.NavLink--active {
+  color: #85c1e9;
+}

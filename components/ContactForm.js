@@ -10,7 +10,7 @@ class ContactForm extends Component {
   static propTypes = {
     contacts: PropTypes.arrayOf(
       PropTypes.exact({
-        id: PropTypes.number,
+        id: PropTypes.string,
         name: PropTypes.string,
         number: PropTypes.string,
       })
@@ -24,9 +24,11 @@ class ContactForm extends Component {
     error: false,
   };
 
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
+  componentDidMount() {
+    this.props.onContactsFetching();
+  }
 
+  handleInputChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value,
     });
@@ -90,7 +92,7 @@ class ContactForm extends Component {
             pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
             autoComplete="off"
             value={number}
-            name={"number"}
+            name="number"
             onChange={this.handleInputChange}
           />
         </FormLabel>
@@ -117,6 +119,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   onContactAdding: contactsOperations.addContact,
+  onContactsFetching: contactsOperations.fetchContacts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
